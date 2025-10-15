@@ -1,14 +1,14 @@
 [project]
 name = "healthcare-agent-orchestrator"
 version = "0.1.0"
-description = "Healthcare Agent Orchestrator for MedImageParse with Azure AI Foundry"
+description = "Healthcare Agent Orchestrator for MedImageParse with Microsoft Agent Framework"
 authors = [
     {name = "Arturo Quiroga", email = "arturo.quiroga@microsoft.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-keywords = ["healthcare", "medical-imaging", "ai-agents", "azure", "medimageparse"]
+keywords = ["healthcare", "medical-imaging", "ai-agents", "azure", "medimageparse", "maf"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Healthcare Industry",
@@ -22,17 +22,28 @@ classifiers = [
 ]
 
 dependencies = [
-    "azure-ai-projects>=1.0.0",
+    # Microsoft Agent Framework
+    "agent-framework>=0.1.0",
     "azure-identity>=1.15.0",
-    "azure-ai-ml>=1.14.0",
-    "azure-storage-blob>=12.19.0",
-    "azure-ai-inference>=1.0.0b4",
+    
+    # Medical Imaging
     "pydicom>=2.4.4",
     "pillow>=10.2.0",
     "numpy>=1.26.4",
+    
+    # Azure Storage
+    "azure-storage-blob>=12.19.0",
+    
+    # Configuration and validation
     "python-dotenv>=1.0.1",
     "pydantic>=2.6.1",
     "pydantic-settings>=2.1.0",
+    
+    # HTTP clients
+    "httpx>=0.27.0",
+    "aiohttp>=3.9.0",
+    
+    # OpenTelemetry for observability
     "opentelemetry-api>=1.22.0",
     "opentelemetry-sdk>=1.22.0",
     "opentelemetry-instrumentation>=0.43b0",

@@ -18,22 +18,29 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
-    # Azure AI Foundry Configuration
-    azure_ai_project_endpoint: str = Field(
-        ...,
-        description="Azure AI Foundry project endpoint"
-    )
-    azure_subscription_id: Optional[str] = Field(
+    # Microsoft Agent Framework Configuration
+    # Azure OpenAI configuration for MAF agents
+    azure_openai_endpoint: Optional[str] = Field(
         None,
-        description="Azure subscription ID"
+        description="Azure OpenAI endpoint URL (optional if using environment)"
     )
-    azure_resource_group: Optional[str] = Field(
+    azure_openai_api_key: Optional[str] = Field(
         None,
-        description="Azure resource group name"
+        description="Azure OpenAI API key (optional if using managed identity)"
     )
-    model_deployment_name: str = Field(
+    azure_openai_deployment: str = Field(
         default="gpt-4o",
-        description="Model deployment name for agents"
+        description="Azure OpenAI model deployment name for agents"
+    )
+    azure_openai_api_version: str = Field(
+        default="2024-08-01-preview",
+        description="Azure OpenAI API version"
+    )
+    
+    # Use Azure CLI authentication for development
+    use_azure_cli_auth: bool = Field(
+        default=True,
+        description="Use Azure CLI for authentication (recommended for dev)"
     )
 
     # MedImageParse Configuration

@@ -1,10 +1,18 @@
 # Healthcare Agent Orchestrator
 
-> Comprehensive production-ready implementation of a healthcare agent orchestrator for MedImageParse using Azure AI Foundry Agent Service
+> Production-ready healthcare agent orchestrator for MedImageParse using **Microsoft Agent Framework (MAF)**
 
 ## Overview
 
-This repository contains the complete implementation of a healthcare agent orchestrator that transforms Azure AI Foundry's MedImageParse from a standalone medical image segmentation API into a production-ready clinical decision support system.
+This repository contains a complete implementation of a healthcare agent orchestrator that transforms Azure's MedImageParse from a standalone medical image segmentation API into a production-ready clinical decision support system using **Microsoft Agent Framework**.
+
+### Why Microsoft Agent Framework?
+
+Microsoft Agent Framework (MAF) is the next-generation framework combining the best of Semantic Kernel and AutoGen, providing:
+- 🔄 **Workflow Orchestration**: Sequential, concurrent, and conditional agent coordination
+- 🎯 **Type Safety**: Strong typing for reliable multi-agent communication
+- 🔍 **Built-in Observability**: OpenTelemetry integration for tracing
+- 🏗️ **Enterprise-Grade**: Thread-based state management and extensive model support
 
 ## What's Inside
 
@@ -43,30 +51,85 @@ PACS/EMR → Ingestion → Preprocessing → Prompt Generation → MedImageParse
   EMR Integration ← Report Generation ← Multi-Model ← Validation & QA
 ```
 
-### Core Agent Components:
+### Core Agent Components (MAF):
 
-1. **Image Preprocessing Agent** - Format conversion, resizing, PHI anonymization
-2. **Prompt Generation Agent** - Context-aware, modality-specific prompts
-3. **MedImageParse Inference Agent** - API orchestration and error handling
-4. **Validation & QA Agent** - Quality metrics, confidence scoring
-5. **Post-Processing Agent** - Visualization, measurements, comparisons
-6. **Report Generation Agent** - Structured findings with CXRReportGen
-7. **Integration Agent** - PACS/EMR connectivity, DICOM SR creation
+1. **Image Preprocessing Agent** - DICOM parsing, format conversion, windowing
+2. **Prompt Generation Agent** - Modality-specific, anatomically accurate prompts
+3. **MedImageParse Inference Agent** - API orchestration with error handling
+4. **Validation & QA Agent** - Quality metrics and confidence scoring
+5. **Post-Processing Agent** - Mask refinement and clinical measurements
+6. **Report Generation Agent** - Structured clinical reports
+7. **Integration Agent** - PACS/EHR connectivity and DICOM storage
 
-## Getting Started
+## Installation
 
-### Prerequisites
+```bash
+# Clone the repository
+git clone https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator.git
+cd healthcare-agent-orchestrator
 
-- Azure subscription with AI Foundry access
-- Azure AI Developer RBAC role
-- Hub-based project in Azure AI Foundry
-- Python 3.8+ with Azure ML SDK
+# Install dependencies
+pip install -e .
 
-### Quick Links
+# Configure environment
+cp .env.example .env
+# Edit .env with your Azure OpenAI and MedImageParse endpoints
+```
 
-- [Microsoft Learn: Deploy MedImageParse](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/healthcare-ai/deploy-medimageparse)
-- [Azure AI Foundry Portal](https://ai.azure.com/?cid=learnDocs)
-- [Sample Notebooks](https://aka.ms/healthcare-ai-examples-mip-deploy)
+## Quick Start
+
+```python
+import asyncio
+from healthcare_orchestrator import HealthcareOrchestrator, Settings
+from healthcare_orchestrator.models.schemas import MedicalImageInput, ImageModality
+
+async def main():
+    settings = Settings()  # Loads from .env
+    
+    image_input = MedicalImageInput(
+        study_id="STUDY-001",
+        patient_id="PATIENT-001",
+        modality=ImageModality.CT,
+        image_path="/path/to/ct_scan.dcm"
+    )
+    
+    async with HealthcareOrchestrator(settings) as orchestrator:
+        # Option 1: Streaming processing
+        async for update in orchestrator.process_medical_image_streaming(image_input):
+            print(update, end="", flush=True)
+        
+        # Option 2: Standard processing
+        result = await orchestrator.process_medical_image(image_input)
+        print(f"Status: {result.status}")
+        print(f"Masks: {len(result.segmentation_masks)}")
+
+asyncio.run(main())
+```
+
+See [examples/](./examples/) for more detailed usage patterns.
+
+## Prerequisites
+
+- **Python 3.10+**
+- **Azure OpenAI** deployment (gpt-4o or gpt-4)
+- **MedImageParse** endpoint deployed on Azure
+- **Azure CLI** (for authentication during development)
+
+## Project Structure
+
+```
+healthcare-agent-orchestrator/
+├── src/healthcare_orchestrator/
+│   ├── agents/              # 7 specialized MAF agents
+│   ├── config/              # Pydantic settings
+│   ├── models/              # Data schemas and prompts
+│   └── orchestrator.py      # Main MAF workflow orchestrator
+├── examples/                # Usage examples
+│   ├── basic_usage.py
+│   └── batch_processing.py
+├── MedImageParse-Orchestrator-Reference.md  # Technical reference
+└── pyproject.toml
+```
 
 ## Related Azure Healthcare AI Models
 
@@ -90,10 +153,11 @@ MIT License - See LICENSE file for details
 
 ## Resources
 
-- [Azure AI Foundry Documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/)
-- [Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/)
+- [Microsoft Agent Framework Overview](https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview)
+- [Deploy MedImageParse on Azure](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/healthcare-ai/deploy-medimageparse)
+- [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/)
 - [Healthcare AI on Azure](https://azure.microsoft.com/en-us/solutions/industries/healthcare/)
 
 ---
 
-**Built with Azure AI Foundry** | **Document Date**: October 14, 2025
+**Built with Microsoft Agent Framework** | **Updated**: October 15, 2025

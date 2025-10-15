@@ -2,7 +2,7 @@
 Healthcare Agent Orchestrator
 
 A production-ready healthcare agent orchestrator for MedImageParse 
-using Azure AI Foundry Agent Service.
+using Microsoft Agent Framework (MAF).
 """
 
 __version__ = "0.1.0"
