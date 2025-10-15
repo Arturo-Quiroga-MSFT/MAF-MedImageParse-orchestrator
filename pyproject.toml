@@ -1,0 +1,89 @@
+[project]
+name = "healthcare-agent-orchestrator"
+version = "0.1.0"
+description = "Healthcare Agent Orchestrator for MedImageParse with Azure AI Foundry"
+authors = [
+    {name = "Arturo Quiroga", email = "arturo.quiroga@microsoft.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["healthcare", "medical-imaging", "ai-agents", "azure", "medimageparse"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "azure-ai-projects>=1.0.0",
+    "azure-identity>=1.15.0",
+    "azure-ai-ml>=1.14.0",
+    "azure-storage-blob>=12.19.0",
+    "azure-ai-inference>=1.0.0b4",
+    "pydicom>=2.4.4",
+    "pillow>=10.2.0",
+    "numpy>=1.26.4",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.6.1",
+    "pydantic-settings>=2.1.0",
+    "opentelemetry-api>=1.22.0",
+    "opentelemetry-sdk>=1.22.0",
+    "opentelemetry-instrumentation>=0.43b0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-cov>=4.1.0",
+    "black>=24.2.0",
+    "ruff>=0.2.2",
+    "mypy>=1.8.0",
+    "ipython>=8.21.0",
+    "ipykernel>=6.29.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator"
+Repository = "https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator"
+Documentation = "https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator/blob/main/README.md"
+Issues = "https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator/issues"
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["healthcare_orchestrator*"]
+
+[tool.black]
+line-length = 120
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"

@@ -1,10 +1,10 @@
 # Healthcare Agent Orchestrator
 
-> Comprehensive reference and architecture for implementing AI-powered medical image segmentation workflows with Azure AI Foundry and MedImageParse
+> Comprehensive production-ready implementation of a healthcare agent orchestrator for MedImageParse using Azure AI Foundry Agent Service
 
 ## Overview
 
-This repository contains detailed documentation for building a healthcare agent orchestrator solution that transforms Azure AI Foundry's MedImageParse from a standalone medical image segmentation API into a production-ready clinical decision support system.
+This repository contains the complete implementation of a healthcare agent orchestrator that transforms Azure AI Foundry's MedImageParse from a standalone medical image segmentation API into a production-ready clinical decision support system.
 
 ## What's Inside
 
