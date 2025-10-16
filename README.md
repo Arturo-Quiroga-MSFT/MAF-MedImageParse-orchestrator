@@ -176,8 +176,6 @@ Why keep both?
 
 - This repository serves users who want a small, easy-to-consume Python SDK/reference specifically for MedImageParse flows (no infra or UI required). It can also act as an adapter/agent implementation that could be plugged into larger orchestrators like the Azure-Samples project.
 
-
 Related projects
 
 - Azure-Samples official project: https://github.com/Azure-Samples/healthcare-agent-orchestrator
-
