@@ -6,9 +6,9 @@ from typing import AsyncIterator
 from agent_framework import ChatAgent, ChatMessage, AgentRunResponse, AgentRunResponseUpdate
 from azure.identity.aio import AzureCliCredential, DefaultAzureCredential
 
-from ..config.settings import Settings
-from ..models.schemas import MedicalImageInput, ImageModality
-from ..models.prompts import PROMPT_GENERATION_AGENT_INSTRUCTIONS, MODALITY_PROMPT_TEMPLATES
+from healthcare_orchestrator.config.settings import Settings
+from healthcare_orchestrator.models.schemas import MedicalImageInput, ImageModality
+from healthcare_orchestrator.models.prompts import PROMPT_GENERATOR_INSTRUCTIONS, MODALITY_SPECIFIC_PROMPTS
 
 
 class PromptGeneratorAgent:
@@ -30,17 +30,18 @@ class PromptGeneratorAgent:
         else:
             self.credential = DefaultAzureCredential()
             
-        from agent_framework.azure import AzureChatClient
+        from agent_framework.azure import AzureOpenAIChatClient
         
-        chat_client = AzureChatClient(
+        chat_client = AzureOpenAIChatClient(
             credential=self.credential,
             azure_endpoint=self.settings.azure_openai_endpoint,
-            api_version=self.settings.azure_openai_api_version
+            api_version=self.settings.azure_openai_api_version,
+            deployment_name=self.settings.azure_openai_deployment
         )
         
         self.agent = chat_client.create_agent(
             name="PromptGeneratorAgent",
-            instructions=PROMPT_GENERATION_AGENT_INSTRUCTIONS,
+            instructions=PROMPT_GENERATOR_INSTRUCTIONS,
             ai_model_id=self.settings.azure_openai_deployment
         )
         
@@ -70,7 +71,7 @@ class PromptGeneratorAgent:
             raise RuntimeError("Agent not initialized. Use 'async with' context manager.")
             
         # Get modality-specific template
-        template = MODALITY_PROMPT_TEMPLATES.get(image_input.modality, "")
+        template = MODALITY_SPECIFIC_PROMPTS.get(image_input.modality, "")
         
         message = ChatMessage(
             role="user",

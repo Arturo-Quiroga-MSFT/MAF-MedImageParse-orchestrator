@@ -6,8 +6,8 @@ from typing import AsyncIterator
 from agent_framework import ChatAgent, ChatMessage, AgentRunResponse, AgentRunResponseUpdate
 from azure.identity.aio import AzureCliCredential, DefaultAzureCredential
 
-from ..config.settings import Settings
-from ..models.prompts import MEDIMAGEPARSE_INFERENCE_AGENT_INSTRUCTIONS
+from healthcare_orchestrator.config.settings import Settings
+from healthcare_orchestrator.models.prompts import MEDIMAGEPARSE_AGENT_INSTRUCTIONS
 
 
 class MedImageParseAgent:
@@ -29,17 +29,18 @@ class MedImageParseAgent:
         else:
             self.credential = DefaultAzureCredential()
             
-        from agent_framework.azure import AzureChatClient
+        from agent_framework.azure import AzureOpenAIChatClient
         
-        chat_client = AzureChatClient(
+        chat_client = AzureOpenAIChatClient(
             credential=self.credential,
             azure_endpoint=self.settings.azure_openai_endpoint,
-            api_version=self.settings.azure_openai_api_version
+            api_version=self.settings.azure_openai_api_version,
+            deployment_name=self.settings.azure_openai_deployment
         )
         
         self.agent = chat_client.create_agent(
             name="MedImageParseAgent",
-            instructions=MEDIMAGEPARSE_INFERENCE_AGENT_INSTRUCTIONS,
+            instructions=MEDIMAGEPARSE_AGENT_INSTRUCTIONS,
             ai_model_id=self.settings.azure_openai_deployment
         )
         

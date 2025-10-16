@@ -101,7 +101,7 @@ All agents implemented using MAF's `ChatAgent` with Azure OpenAI:
 ## 📦 Project Structure
 
 ```
-healthcare-agent-orchestrator/
+MAF-MedImageParse-orchestrator/
 ├── src/healthcare_orchestrator/
 │   ├── __init__.py              # Package exports
 │   ├── orchestrator.py          # Main orchestrator (267 lines)
@@ -313,7 +313,7 @@ This implementation demonstrates:
 
 ## 📞 Repository
 
-**GitHub**: https://github.com/Arturo-Quiroga-MSFT/healthcare-agent-orchestrator
+**GitHub**: https://github.com/Arturo-Quiroga-MSFT/MAF-MedImageParse-orchestrator
 
 **Latest Commit**: `feat: Implement agent system using Microsoft Agent Framework (MAF)`
 

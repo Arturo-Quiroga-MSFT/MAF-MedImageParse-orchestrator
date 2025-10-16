@@ -17,8 +17,8 @@ from agent_framework import (
 )
 from azure.identity.aio import AzureCliCredential, DefaultAzureCredential
 
-from ..config.settings import Settings
-from ..models.schemas import (
+from healthcare_orchestrator.config.settings import Settings
+from healthcare_orchestrator.models.schemas import (
     MedicalImageInput,
     ProcessingResult,
     ProcessingStatus,
@@ -26,7 +26,7 @@ from ..models.schemas import (
     ValidationResult,
     ClinicalReport
 )
-from ..agents import (
+from healthcare_orchestrator.agents import (
     PreprocessingAgent,
     PromptGeneratorAgent,
     MedImageParseAgent,
@@ -203,7 +203,7 @@ class HealthcareOrchestrator:
         
         # Stream workflow execution
         last_executor_id = None
-        async for event in self.workflow.run_streaming(initial_message):
+        async for event in self.workflow.run_stream(initial_message):
             # Import event type
             from agent_framework import AgentRunUpdateEvent
             

@@ -6,9 +6,9 @@ from typing import AsyncIterator
 from agent_framework import ChatAgent, ChatMessage, AgentRunResponse, AgentRunResponseUpdate
 from azure.identity.aio import AzureCliCredential, DefaultAzureCredential
 
-from ..config.settings import Settings
-from ..models.schemas import ProcessingResult, SegmentationMask
-from ..models.prompts import REPORT_GENERATION_AGENT_INSTRUCTIONS
+from healthcare_orchestrator.config.settings import Settings
+from healthcare_orchestrator.models.schemas import ProcessingResult, SegmentationMask
+from healthcare_orchestrator.models.prompts import REPORT_GENERATOR_INSTRUCTIONS
 
 
 class ReportGeneratorAgent:
@@ -30,17 +30,18 @@ class ReportGeneratorAgent:
         else:
             self.credential = DefaultAzureCredential()
             
-        from agent_framework.azure import AzureChatClient
+        from agent_framework.azure import AzureOpenAIChatClient
         
-        chat_client = AzureChatClient(
+        chat_client = AzureOpenAIChatClient(
             credential=self.credential,
             azure_endpoint=self.settings.azure_openai_endpoint,
-            api_version=self.settings.azure_openai_api_version
+            api_version=self.settings.azure_openai_api_version,
+            deployment_name=self.settings.azure_openai_deployment
         )
         
         self.agent = chat_client.create_agent(
             name="ReportGeneratorAgent",
-            instructions=REPORT_GENERATION_AGENT_INSTRUCTIONS,
+            instructions=REPORT_GENERATOR_INSTRUCTIONS,
             ai_model_id=self.settings.azure_openai_deployment
         )
         

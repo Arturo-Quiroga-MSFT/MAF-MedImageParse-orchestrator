@@ -43,7 +43,7 @@ class MedicalImageInput(BaseModel):
     """Input model for medical image processing"""
     image_path: str = Field(..., description="Path to the medical image file")
     modality: ImageModality = Field(..., description="DICOM modality")
-    clinical_indication: str = Field(..., description="Clinical reason for imaging")
+    clinical_indication: Optional[str] = Field(None, description="Clinical reason for imaging")
     patient_id: Optional[str] = Field(None, description="Patient identifier (anonymized)")
     study_id: Optional[str] = Field(None, description="Study identifier")
     series_id: Optional[str] = Field(None, description="Series identifier")
