@@ -164,31 +164,3 @@ MIT License - See LICENSE file for details
 
 ## Relationship to the official Azure-Samples project
 
-There is a related Microsoft-maintained sample repository with the same high-level name: https://github.com/Azure-Samples/healthcare-agent-orchestrator. That project is a broad, end-to-end multi-agent accelerator which includes deployment templates (azd/Bicep), a React client, Microsoft Teams integration, many pre-built agents (patient history, radiology, clinical trials, research), and full infrastructure and deployment guidance.
-
-This repository intentionally differs in scope:
-
-- Scope and intent: This codebase is a compact, Python-first orchestrator focused on MedImageParse-based medical image segmentation workflows and a small set of specialized agents (preprocessing, prompt generation, MedImageParse inference, validation, post-processing, reporting, integration). The Azure-Samples project is a wider accelerator and deployment reference for many healthcare agent scenarios.
-- Complexity: The Azure-Samples repo provides production-ready infra, app/client code, notebooks, Teams installers, and extensive deployment docs. This repository is lightweight and intended to be used as a programmatic library or reference for MedImageParse orchestration without requiring full infra or Teams setup.
-- Interoperability: Both projects are permissively licensed (MIT). That means you are free to reuse, adapt, or contribute code across projects while following the respective contribution and trademark guidance in the Microsoft repo if you plan to contribute upstream.
-
-Why keep both?
-
-- This repository serves users who want a small, easy-to-consume Python SDK/reference specifically for MedImageParse flows (no infra or UI required). It can also act as an adapter/agent implementation that could be plugged into larger orchestrators like the Azure-Samples project.
-
-Suggested repository-name alternatives to avoid confusion
-
-If you'd like to reduce naming collisions and make your project's focus explicit, consider renaming the repository to one of these variants:
-
-- `medimageparse-orchestrator`
-- `maf-medimage-orchestrator` (MAF = Microsoft Agent Framework)
-- `healthcare-orchestrator-medimageparse`
-- `medimage-agent-orchestrator`
-
-If you prefer to keep the current name, consider adding a short tagline in the repository description and package metadata (e.g., "MedImageParse-focused Python orchestrator — compact SDK for medical image segmentation") so search results and visitors understand the difference immediately.
-
-Related projects
-
-- Azure-Samples official project: https://github.com/Azure-Samples/healthcare-agent-orchestrator
-
-If you want, I can create a small PR that renames package metadata (`pyproject.toml`) and updates badges/packaging to match any of the suggested names, or I can add a short adapter example showing how this project could be used as a MedImageParse agent in the Azure-Samples orchestrator.
