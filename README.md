@@ -176,19 +176,8 @@ Why keep both?
 
 - This repository serves users who want a small, easy-to-consume Python SDK/reference specifically for MedImageParse flows (no infra or UI required). It can also act as an adapter/agent implementation that could be plugged into larger orchestrators like the Azure-Samples project.
 
-Suggested repository-name alternatives to avoid confusion
-
-If you'd like to reduce naming collisions and make your project's focus explicit, consider renaming the repository to one of these variants:
-
-- `medimageparse-orchestrator`
-- `maf-medimage-orchestrator` (MAF = Microsoft Agent Framework)
-- `healthcare-orchestrator-medimageparse`
-- `medimage-agent-orchestrator`
-
-If you prefer to keep the current name, consider adding a short tagline in the repository description and package metadata (e.g., "MedImageParse-focused Python orchestrator — compact SDK for medical image segmentation") so search results and visitors understand the difference immediately.
 
 Related projects
 
 - Azure-Samples official project: https://github.com/Azure-Samples/healthcare-agent-orchestrator
 
-If you want, I can create a small PR that renames package metadata (`pyproject.toml`) and updates badges/packaging to match any of the suggested names, or I can add a short adapter example showing how this project could be used as a MedImageParse agent in the Azure-Samples orchestrator.
